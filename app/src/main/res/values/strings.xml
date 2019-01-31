@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">My Kotlin</string>
+    <string name="hello">hello kotlin</string>
+    <string name="second">second</string>
 </resources>
