@@ -2,8 +2,8 @@
 //目录与包的结构无需匹配
 package com.shen.mykotlin
 
-import android.graphics.Rect
-import androidx.constraintlayout.solver.widgets.Rectangle
+import com.shen.mykotlin.test.Customer
+import java.io.File
 
 //--------------------函数--------------------
 //带有两个 Int 参数、返回 Int 的函数：
@@ -78,13 +78,49 @@ fun getStringLength(obj: Any): Int? {
 
 fun describe(obj: Any): String =
     when (obj) {
-        2          -> "www"
-        1          -> "One"
-        "Hello"    -> "Greeting"
-        is Long    -> "Long"
+        2 -> "www"
+        1 -> "One"
+        "Hello" -> "Greeting"
+        is Long -> "Long"
         !is String -> "Not a string"
-        else       -> "Unknown"
+        is Short -> "short"
+        !is Int -> "Not a int"
+        else -> "Unknown"
+
     }
+
+fun foo(a: Int = 0, b: String = "") {
+    print("sum of $a and $b is ")
+}
+
+fun String.spaceToCamelCase(): String {
+    return (toString() + " space ")
+}
+
+
+object Resource {
+    var name = "Name"
+}
+
+fun test() {
+    val result = try {
+        Integer.parseInt("")
+    } catch (e: ArithmeticException) {
+        throw IllegalStateException(e)
+    }
+// 使用 result
+}
+
+fun arrayOfMinusOnes(size: Int): IntArray {
+    return IntArray(size).apply { fill(-1) }
+}
+
+fun transform(color: String): Int = when (color) {
+    "Red" -> 0
+    "Green" -> 1
+    "Blue" -> 2
+    else -> throw IllegalArgumentException("Invalid color param value")
+}
 
 fun main() {
     print("sum of 3 and 5 is ")
@@ -97,7 +133,7 @@ fun main() {
 
     val items = listOf("apple", "banana", "kiwifruit")
     for (item in items) {
-        println( item )
+        println(item)
     }
     for (index in items.indices) {
         println("item at $index is ${items[index]}")
@@ -113,7 +149,7 @@ fun main() {
 
     val x = 10
     val y = 9
-    if (x in 1..y+1) {
+    if (x in 1..y + 1) {
         println("fits in range")
     }
 
@@ -124,4 +160,36 @@ fun main() {
         .forEach { println(it) }
 
     val str = StringBuffer("ddddd")
+
+    val customer = Customer("name", "email", "email1")
+
+    val positives = items.filter { it.startsWith("a") }
+
+    val map = mapOf("a" to 1, "b" to 2, "c" to 3)
+    for ((k, v) in map) {
+        println("$k -> $v")
+    }
+    println(map["key"])
+
+    val p by lazy {
+        "a" + "b" + "cd"
+    }
+
+    println(p.spaceToCamelCase())
+
+    val res = Resource
+    println(res.name)
+    res.name = "ddd"
+    println(res.name)
+
+    val files = File("Test").listFiles()
+    println(files?.size)
+    println(files?.size ?: "empty")
+
+    val args = null
+    args?.let {
+        println(items.firstOrNull() ?: "")
+    }
+
+    val email = map["email"] ?: throw IllegalStateException("Email is missing!")
 }
