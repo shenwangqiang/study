@@ -30,10 +30,10 @@ val a: Int = 1  // 立即赋值
 val b = 2   // 自动推断出 `Int` 类型
 //val c: Int  // 如果没有初始值类型不能省略
 //c = 3       // 明确赋值
-//var x = 5 // 自动推断出 `Int` 类型
+var x = 5 // 自动推断出 `Int` 类型
 //x += 1
 val PI = 3.14
-var x = 0
+//var x = 0
 
 /*
  * //ddd
@@ -191,5 +191,65 @@ fun main() {
         println(items.firstOrNull() ?: "")
     }
 
-    val email = map["email"] ?: throw IllegalStateException("Email is missing!")
+//    val email = map["email"] ?: throw IllegalStateException("Email is missing!")
+
+    val max = if (a > b) {
+        print("Choose a")
+        a
+    } else {
+        print("Choose b")
+        b
+    }
+
+    when (x) {
+        0, 1 -> print("x == 0 or x == 1")
+        else -> print("otherwise")
+    }
+
+    val array = arrayOf("a", "b", "c")
+    for ((index, value) in array.withIndex()) {
+        println("the element at $index is $value")
+    }
+
+    listOf(1, 2, 3, 4, 5).forEach {
+        if (it == 3) return@forEach // 非局部直接返回到 foo() 的调用者
+        print(it)
+    }
+    println("this point is unreachable")
+
+    InitOrderDemo("hello")
+    Constructors(2)
+
+    val sumLambda: (Int, Int) -> Int = { x, y -> x + y }
+    println(sumLambda(1, 2))
+}
+
+class InitOrderDemo(name: String) {
+    val firstProperty = "First property: $name".also(::println)
+
+    init {
+        println("First initializer block that prints ${name}")
+    }
+
+    val secondProperty = "Second property: ${name.length}".also(::println)
+
+    init {
+        println("Second initializer block that prints ${name.length}")
+    }
+}
+
+class Constructors {
+    init {
+        println("Init block")
+    }
+
+    constructor(i: Int) {
+        println("Constructor")
+    }
+}
+
+fun vars(vararg v: Int) {
+    for (vt in v) {
+        print(vt)
+    }
 }
